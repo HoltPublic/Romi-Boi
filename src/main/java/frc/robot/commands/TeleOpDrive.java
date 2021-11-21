@@ -4,23 +4,23 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.RomiDrivetrain;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.RomiDrivetrain;
 
-/** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final RomiDrivetrain m_subsystem;
+public class TeleOpDrive extends CommandBase {
+  private final RomiDrivetrain m_drive;
+  private final DoubleSupplier m_forward;
+  private final DoubleSupplier m_rotation;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public ExampleCommand(RomiDrivetrain subsystem) {
-    m_subsystem = subsystem;
+  /** Creates a new TeleOpDrive. */
+  public TeleOpDrive(DoubleSupplier forward, DoubleSupplier rotation, RomiDrivetrain drive) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    m_drive = drive;
+    m_forward = forward;
+    m_rotation = rotation;
+    addRequirements(m_drive);
   }
 
   // Called when the command is initially scheduled.
@@ -29,11 +29,15 @@ public class ExampleCommand extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_drive.arcadeDrive(m_forward.getAsDouble(), m_rotation.getAsDouble());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_drive.stopDrive();
+  }
 
   // Returns true when the command should end.
   @Override
