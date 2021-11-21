@@ -5,7 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.subsystems.DriveSubsystem;
@@ -23,14 +23,14 @@ public class RobotContainer {
   private final DriveSubsystem m_drive = new DriveSubsystem();
 
   // Controllers
-  private final XboxController m_driveController = new XboxController(OIConstants.kDriverController);
+  private final Joystick m_driveController = new Joystick(OIConstants.kDriverController);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_drive.setDefaultCommand(new TeleOpDrive(() -> m_driveController.getY(GenericHID.Hand.kLeft), () -> m_driveController.getX(GenericHID.Hand.kLeft), m_drive));
+    m_drive.setDefaultCommand(new TeleOpDrive(m_driveController::getY,m_driveController::getX,m_drive));
   }
 
   /**
