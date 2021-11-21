@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.TeleOpDrive;
-import frc.robot.subsystems.RomiDrivetrain;
+import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
+  private final DriveSubsystem m_drive = new DriveSubsystem();
 
   // Controllers
   private final XboxController m_driveController = new XboxController(OIConstants.kDriverController);
@@ -30,7 +30,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_romiDrivetrain.setDefaultCommand(new TeleOpDrive(() -> m_driveController.getY(GenericHID.Hand.kLeft), () -> m_driveController.getX(GenericHID.Hand.kLeft), m_romiDrivetrain));
+    m_drive.setDefaultCommand(new TeleOpDrive(() -> m_driveController.getY(GenericHID.Hand.kLeft), () -> m_driveController.getX(GenericHID.Hand.kLeft), m_drive));
   }
 
   /**

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class RomiDrivetrain extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
   private static final double kCountsPerRevolution = 1440.0;
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
@@ -24,10 +24,10 @@ public class RomiDrivetrain extends SubsystemBase {
   private final Encoder m_rightEncoder = new Encoder(6, 7);
 
   // Set up the differential drive controller
-  private final DifferentialDrive m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+  private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  /** Creates a new RomiDrivetrain. */
-  public RomiDrivetrain() {
+  /** Creates a new DriveSubsystem. */
+  public DriveSubsystem() {
     // Use inches as unit for encoder distances
     m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
@@ -35,11 +35,11 @@ public class RomiDrivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-    m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+    m_drive.arcadeDrive(xaxisSpeed, zaxisRotate);
   }
 
   public void stopDrive() {
-    m_diffDrive.stopMotor();
+    m_drive.stopMotor();
   }
 
   public void resetEncoders() {

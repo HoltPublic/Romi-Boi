@@ -7,15 +7,15 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.RomiDrivetrain;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class TeleOpDrive extends CommandBase {
-  private final RomiDrivetrain m_drive;
+  private final DriveSubsystem m_drive;
   private final DoubleSupplier m_forward;
   private final DoubleSupplier m_rotation;
 
   /** Creates a new TeleOpDrive. */
-  public TeleOpDrive(DoubleSupplier forward, DoubleSupplier rotation, RomiDrivetrain drive) {
+  public TeleOpDrive(DoubleSupplier forward, DoubleSupplier rotation, DriveSubsystem drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drive = drive;
     m_forward = forward;
