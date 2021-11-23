@@ -34,8 +34,8 @@ public class DriveSubsystem extends SubsystemBase {
     resetEncoders();
   }
 
-  public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-    m_drive.arcadeDrive(xaxisSpeed, zaxisRotate);
+  public void arcadeDrive(double fwd, double rot) {
+    m_drive.arcadeDrive(fwd, rot);
   }
 
   public void stopDrive() {
@@ -53,6 +53,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   public double getRightDistanceInch() {
     return m_rightEncoder.getDistance();
+  }
+
+  public double getAverageDistanceInch() {
+    return (getLeftDistanceInch() + getRightDistanceInch()) / 2;
   }
 
   @Override
