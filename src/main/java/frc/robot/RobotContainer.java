@@ -4,12 +4,15 @@
 
 package frc.robot;
 // gage is a loser
+
 // no u
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.DriveDistance;
+import frc.robot.commands.DriveTime;
 import frc.robot.commands.TeleOpDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,7 +30,10 @@ public class RobotContainer {
   private final DriveSubsystem m_drive = new DriveSubsystem();
 
   // Commands
-  private final Command m_simpleAuto = new DriveDistance(12, 1, m_drive);
+  private final Command m_simpleDistanceAuto = new DriveDistance(12, 1, m_drive);
+  private final Command m_simpleTimeAuto = new DriveTime(5, 1, m_drive);
+
+  private final SendableChooser<Command> m_auto = new SendableChooser<>();
 
   // Controllers
   private final Joystick m_driveController = new Joystick(OIConstants.kDriverController);
@@ -36,6 +42,10 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    m_auto.setDefaultOption("Time Auto", m_simpleTimeAuto);
+    m_auto.addOption("Distance Auto", m_simpleDistanceAuto);
+
 
     m_drive.setDefaultCommand(new TeleOpDrive(m_driveController::getY,m_driveController::getX,m_drive));
   }
@@ -55,6 +65,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_simpleAuto;
+    return m_auto.getSelected();
   }
 }
